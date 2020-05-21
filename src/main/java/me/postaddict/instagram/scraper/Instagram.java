@@ -3,6 +3,7 @@ package me.postaddict.instagram.scraper;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Instant;
 
 import lombok.AllArgsConstructor;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;
@@ -119,7 +120,7 @@ public class Instagram implements AuthenticatedInsta {
 
         RequestBody formBody = new FormBody.Builder()
                 .add("username", username)
-                .add("password", password)
+                .add("enc_password", String.format("#PWD_INSTAGRAM_BROWSER:0:%d:%s", Instant.now().getEpochSecond(), password))
                 .add("queryParams", "{}")
                 .add("optIntoOneTap", "true")
                 .build();
