@@ -157,6 +157,12 @@ public class ModelMapper implements Mapper{
         return account;
     }
 
+    @Override
+    public Story mapStory(InputStream jsonStream) {
+        GraphQlResponse<Story> graphQlResponse = mapObject(jsonStream, "me/postaddict/instagram/scraper/model/stories.json", GraphQlResponse.class);
+        Story story = graphQlResponse.getPayload();
+        return  story;
+    }
 
     private Node getDomModel(InputStream jsonStream) throws java.io.IOException {
         Map<String,Object> jsonMap = mapperThreadLocal.get().readValue(jsonStream,
@@ -190,6 +196,10 @@ public class ModelMapper implements Mapper{
             unmarshaller.get().setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, false);
             return (T) unmarshaller.get().unmarshal(new StreamSource(jsonStream), rootClass).getValue();
         } catch (JAXBException e) {
+            throw new IllegalArgumentException(e);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
             throw new IllegalArgumentException(e);
         }
     }

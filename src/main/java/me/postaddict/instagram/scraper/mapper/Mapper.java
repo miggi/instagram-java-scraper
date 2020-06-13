@@ -8,6 +8,7 @@ public interface Mapper {
     Account mapAccount(InputStream jsonStream);
     PageObject<Media> mapMedias(InputStream jsonStream);
     Media mapMedia(InputStream jsonStream);
+    Story mapStory(InputStream jsonStream);
     PageObject<Comment> mapComments(InputStream jsonStream);
     Location mapLocation(InputStream jsonStream);
     Tag mapTag(InputStream jsonStream);

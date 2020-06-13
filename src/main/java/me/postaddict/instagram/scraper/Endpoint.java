@@ -29,6 +29,15 @@ public class Endpoint {
     public static final String UNFOLLOW_ACCOUNT = "https://www.instagram.com/web/friendships/{{userId}}/unfollow/";
     public static final String ACTIVITY_FEED = "https://www.instagram.com/accounts/activity/?__a=1";
     public static final String ACTIVITY_MARK_CHECKED = "https://www.instagram.com/web/activity/mark_checked/";
+
+    //***** STORY *****
+      public static final String STORIES_URL = BASE_URL +"/graphql/query/?query_hash=0a85e6ea60a4c99edc58ab2f3d17cfdf&variables={\"reel_ids\":[{{reelIds}}],\"tag_names\":[],\"location_ids\":[],\"highlight_reel_ids\":[],\"precomposed_overlay\":false,\"show_story_viewer_list\":true,\"story_viewer_fetch_count\":50,\"story_viewer_cursor\":\"\",\"stories_video_dash_manifest\":false}";
+//    public static final String MAIN_STORIES_URL = BASE_URL + "/graphql/query/?query_hash=45246d3fe16ccc6577e0bd297a5db1ab&variables={\"reel_ids\":[],\"tag_names\":[],\"location_ids\":[],\"highlight_reel_ids\":[{{highlightReelIds}}],\"precomposed_overlay\":false}";
+//    public static final String HIGHLIGHT_STORIES_USER_ID_URL = BASE_URL + "/graphql/query/?query_hash=c9100bf9110dd6361671f113dd02e7d6&variables={\"user_id\":\"{{userId}}\",\"include_chaining\":false,\"include_reel\":false,\"include_suggested_users\":false,\"include_logged_out_extras\":false,\"include_highlight_reels\":true,\"include_related_profiles\":false}";
+//    public static final String HIGHLIGHT_STORIES_REEL_ID_URL = BASE_URL + "/graphql/query/?query_hash=45246d3fe16ccc6577e0bd297a5db1ab&variables={\"reel_ids\":[],\"tag_names\":[],\"location_ids\":[],\"highlight_reel_ids\":[],\"precomposed_overlay\":false}";
+//    public static final String STORIES_UA = "Instagram 123.0.0.21.114 (iPhone; CPU iPhone OS 11_4 like Mac OS X; en_US; en-US; scale=2.00; 750x1334) AppleWebKit/605.1.15";
+    //***** STORY *****
+
     public static final String USERNAME = "{{username}}";
     public static final String USER_ID = "{{userId}}";
     public static final String MAX_ID = "{{maxId}}";
@@ -43,9 +52,18 @@ public class Endpoint {
     public static final String TAG = "{{tag}}";
     public static final String QUERY = "{{query}}";
     public static final String FACEBOOK_LOCATION_ID = "{{facebookLocationId}}";
+    public static final String REEL_IDS = "{{reelIds}}";
 
     public static String getAccountId(String username) {
         return ACCOUNT_JSON_INFO.replace(USERNAME, username);
+    }
+
+    public static String getStoryJsonInfoLinkByAccountId(long [] userIds) {
+        String ids = "";
+        for (long userId: userIds) {
+            ids += "\"" + String.valueOf(userId) +"\", ";
+        }
+        return STORIES_URL.replace(REEL_IDS, ids.substring(0,ids.length()-2));
     }
 
     public static String getAccountJsonInfoLinkByAccountId(long userId) {
