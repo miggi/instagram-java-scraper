@@ -30,13 +30,19 @@ public class Endpoint {
     public static final String ACTIVITY_FEED = "https://www.instagram.com/accounts/activity/?__a=1";
     public static final String ACTIVITY_MARK_CHECKED = "https://www.instagram.com/web/activity/mark_checked/";
 
-    //***** STORY *****
-      public static final String STORIES_URL = BASE_URL +"/graphql/query/?query_hash=0a85e6ea60a4c99edc58ab2f3d17cfdf&variables={\"reel_ids\":[{{reelIds}}],\"tag_names\":[],\"location_ids\":[],\"highlight_reel_ids\":[],\"precomposed_overlay\":false,\"show_story_viewer_list\":true,\"story_viewer_fetch_count\":50,\"story_viewer_cursor\":\"\",\"stories_video_dash_manifest\":false}";
-//    public static final String MAIN_STORIES_URL = BASE_URL + "/graphql/query/?query_hash=45246d3fe16ccc6577e0bd297a5db1ab&variables={\"reel_ids\":[],\"tag_names\":[],\"location_ids\":[],\"highlight_reel_ids\":[{{highlightReelIds}}],\"precomposed_overlay\":false}";
-//    public static final String HIGHLIGHT_STORIES_USER_ID_URL = BASE_URL + "/graphql/query/?query_hash=c9100bf9110dd6361671f113dd02e7d6&variables={\"user_id\":\"{{userId}}\",\"include_chaining\":false,\"include_reel\":false,\"include_suggested_users\":false,\"include_logged_out_extras\":false,\"include_highlight_reels\":true,\"include_related_profiles\":false}";
-//    public static final String HIGHLIGHT_STORIES_REEL_ID_URL = BASE_URL + "/graphql/query/?query_hash=45246d3fe16ccc6577e0bd297a5db1ab&variables={\"reel_ids\":[],\"tag_names\":[],\"location_ids\":[],\"highlight_reel_ids\":[],\"precomposed_overlay\":false}";
-//    public static final String STORIES_UA = "Instagram 123.0.0.21.114 (iPhone; CPU iPhone OS 11_4 like Mac OS X; en_US; en-US; scale=2.00; 750x1334) AppleWebKit/605.1.15";
-    //***** STORY *****
+    // ***** STORY *****
+    public static final String STORIES_URL = BASE_URL
+            + "/graphql/query/?query_hash=f455598773da838d763d2ebad0eb658b&variables={\"reel_ids\":[{{reelIds}}],\"tag_names\":[],\"location_ids\":[],\"highlight_reel_ids\":[],\"precomposed_overlay\":false,\"show_story_viewer_list\":true,\"story_viewer_fetch_count\":50,\"story_viewer_cursor\":\"\",\"stories_video_dash_manifest\":false}";
+    // public static final String MAIN_STORIES_URL = BASE_URL +
+    // "/graphql/query/?query_hash=45246d3fe16ccc6577e0bd297a5db1ab&variables={\"reel_ids\":[],\"tag_names\":[],\"location_ids\":[],\"highlight_reel_ids\":[{{highlightReelIds}}],\"precomposed_overlay\":false}";
+    // public static final String HIGHLIGHT_STORIES_USER_ID_URL = BASE_URL +
+    // "/graphql/query/?query_hash=c9100bf9110dd6361671f113dd02e7d6&variables={\"user_id\":\"{{userId}}\",\"include_chaining\":false,\"include_reel\":false,\"include_suggested_users\":false,\"include_logged_out_extras\":false,\"include_highlight_reels\":true,\"include_related_profiles\":false}";
+    // public static final String HIGHLIGHT_STORIES_REEL_ID_URL = BASE_URL +
+    // "/graphql/query/?query_hash=45246d3fe16ccc6577e0bd297a5db1ab&variables={\"reel_ids\":[],\"tag_names\":[],\"location_ids\":[],\"highlight_reel_ids\":[],\"precomposed_overlay\":false}";
+    // public static final String STORIES_UA = "Instagram 123.0.0.21.114 (iPhone;
+    // CPU iPhone OS 11_4 like Mac OS X; en_US; en-US; scale=2.00; 750x1334)
+    // AppleWebKit/605.1.15";
+    // ***** STORY *****
 
     public static final String USERNAME = "{{username}}";
     public static final String USER_ID = "{{userId}}";
@@ -58,12 +64,12 @@ public class Endpoint {
         return ACCOUNT_JSON_INFO.replace(USERNAME, username);
     }
 
-    public static String getStoryJsonInfoLinkByAccountId(long [] userIds) {
+    public static String getStoryJsonInfoLinkByAccountId(long[] userIds) {
         String ids = "";
-        for (long userId: userIds) {
-            ids += "\"" + String.valueOf(userId) +"\", ";
+        for (long userId : userIds) {
+            ids += "\"" + String.valueOf(userId) + "\", ";
         }
-        return STORIES_URL.replace(REEL_IDS, ids.substring(0,ids.length()-2));
+        return STORIES_URL.replace(REEL_IDS, ids.substring(0, ids.length() - 2));
     }
 
     public static String getAccountJsonInfoLinkByAccountId(long userId) {
@@ -112,15 +118,11 @@ public class Endpoint {
     }
 
     public static String getLastCommentsByCodeLink(String code, int count) {
-        return LAST_COMMENTS_BY_CODE
-                .replace(CODE, code)
-                .replace(COUNT, "" + count);
+        return LAST_COMMENTS_BY_CODE.replace(CODE, code).replace(COUNT, "" + count);
     }
 
     public static String getCommentsBeforeCommentIdByCode(String shortcode, int count, String commentId) {
-        return COMMENTS_BEFORE_COMMENT_ID_BY_CODE
-                .replace(SHORTCODE, shortcode)
-                .replace(COUNT, "" + count)
+        return COMMENTS_BEFORE_COMMENT_ID_BY_CODE.replace(SHORTCODE, shortcode).replace(COUNT, "" + count)
                 .replace(COMMENT_ID, commentId);
     }
 
@@ -137,39 +139,29 @@ public class Endpoint {
     }
 
     public static String deleteMediaCommentLink(String mediaId, String commentId) {
-        return MEDIA_COMMENTS_DELETE
-                .replace(MEDIA_ID, mediaId)
-                .replace(COMMENT_ID, commentId);
+        return MEDIA_COMMENTS_DELETE.replace(MEDIA_ID, mediaId).replace(COMMENT_ID, commentId);
     }
 
-    public static String getLikesByShortcode(String shortcode, int count, String endCursor){
-        return LIKES_BY_SHORTCODE
-                    .replace(SHORTCODE, shortcode)
-                    .replace(COUNT, String.valueOf(count))
-                    .replace(AFTER, endCursor);
+    public static String getLikesByShortcode(String shortcode, int count, String endCursor) {
+        return LIKES_BY_SHORTCODE.replace(SHORTCODE, shortcode).replace(COUNT, String.valueOf(count)).replace(AFTER,
+                endCursor);
     }
 
     public static String getFollowAccountLink(long userId) {
-        return FOLLOW_ACCOUNT
-                .replace(USER_ID, String.valueOf(userId));
+        return FOLLOW_ACCOUNT.replace(USER_ID, String.valueOf(userId));
     }
-    
+
     public static String getUnfollowAccountLink(long userId) {
-        return UNFOLLOW_ACCOUNT
-                .replace(USER_ID, String.valueOf(userId));
+        return UNFOLLOW_ACCOUNT.replace(USER_ID, String.valueOf(userId));
     }
-    
+
     public static String getFollowsLinkVariables(long userId, int count, String endCursor) {
-        return FOLLOWS_URL
-                .replace(USER_ID, String.valueOf(userId))
-                .replace(COUNT, String.valueOf(count))
+        return FOLLOWS_URL.replace(USER_ID, String.valueOf(userId)).replace(COUNT, String.valueOf(count))
                 .replace(END_CURSOR, endCursor);
     }
 
     public static String getFollowersLinkVariables(long userId, int count, String endCursor) {
-        return FOLLOWERS_URL
-                .replace(USER_ID, String.valueOf(userId))
-                .replace(COUNT, String.valueOf(count))
+        return FOLLOWERS_URL.replace(USER_ID, String.valueOf(userId)).replace(COUNT, String.valueOf(count))
                 .replace(END_CURSOR, endCursor);
     }
 }
