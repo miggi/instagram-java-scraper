@@ -2,6 +2,8 @@ package me.postaddict.instagram.scraper;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -142,8 +144,8 @@ public class Instagram implements AuthenticatedInsta {
     }
 
     public PageObject<Media> getMedias(String username, int pageCount) throws IOException {
-        long userId = getAccountByUsername(username).getId();
-        return getMedias(userId, pageCount, FIRST_PAGE);
+        // long userId = getAccountByUsername(username).getId();
+        return getMedias(1, pageCount, FIRST_PAGE);
     }
 
     public void getStory(String username) throws IOException {
@@ -153,17 +155,13 @@ public class Instagram implements AuthenticatedInsta {
 
     public Story getStory(long ids[]) throws IOException {
         Request request = new Request.Builder().url(Endpoint.getStoryJsonInfoLinkByAccountId(ids)).build();
-        Response response = httpClient.newCall(request).execute();
+        // Response response = httpClient.newCall(request).execute();
         // Response response = executeHttpRequest(request);
-        try (InputStream jsonStream = response.body().byteStream()) {
-            InputStreamReader streamReader = new InputStreamReader(jsonStream);
-            BufferedReader reader = new BufferedReader(streamReader);
-            StringBuffer sb = new StringBuffer();
-            String str;
-            while ((str = reader.readLine()) != null) {
-                sb.append(str);
-            }
-            System.out.println("JSON:\n" + sb.toString());
+        // response.body().byteStream()
+
+        File file = new File("stories_example.json");
+
+        try (InputStream jsonStream = new FileInputStream(file)) {
             return mapper.mapStory(jsonStream);
         }
     }
