@@ -200,6 +200,7 @@ public class ModelMapper implements Mapper{
         }
         catch(Exception e) {
             e.printStackTrace();
+            e.getMessage();
             throw new IllegalArgumentException(e);
         }
     }

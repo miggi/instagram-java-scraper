@@ -4,7 +4,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class Story<T> {
+public class Story {
 
     private String typeName;
     private String id;
@@ -15,5 +15,6 @@ public class Story<T> {
     private boolean hasBestiesMedia;
     private boolean hasPrideMedia;
     private long seen;
-    private List<T> items;
+    private List<StoryItem> items;
+    private Account owner;
 }

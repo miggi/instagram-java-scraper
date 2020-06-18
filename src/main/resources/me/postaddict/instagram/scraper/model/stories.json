@@ -69,8 +69,8 @@
         },
         "java-attributes": {
           "xml-element": [
-            {"java-attribute": "count", "type": "java.lang.String", "xml-path": "count/text()"},
-            {"java-attribute": "page_info", "type": "java.lang.String", "xml-path": "page_info/text()"}
+            {"java-attribute": "count", "type": "java.lang.Integer", "xml-path": "count/text()"},
+            {"java-attribute": "page_info", "type": "me.postaddict.instagram.scraper.model.PageInfo", "xml-path": "page_info/text()"}
           ]
         }
       },
