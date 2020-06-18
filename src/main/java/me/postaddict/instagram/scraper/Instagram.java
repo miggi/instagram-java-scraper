@@ -144,17 +144,13 @@ public class Instagram implements AuthenticatedInsta {
     }
 
     public PageObject<Media> getMedias(String username, int pageCount) throws IOException {
-        // long userId = getAccountByUsername(username).getId();
-        return getMedias(1, pageCount, FIRST_PAGE);
-    }
-
-    public void getStory(String username) throws IOException {
-        // long userId = getAccountByUsername(username).getId();
-        // return getStory(userId);
+        long userId = getAccountByUsername(username).getId();
+        return getMedias(userId, pageCount, FIRST_PAGE);
     }
 
     public Story getStory(long ids[]) throws IOException {
-        Request request = new Request.Builder().url(Endpoint.getStoryJsonInfoLinkByAccountId(ids)).build();
+        // Request request = new
+        // Request.Builder().url(Endpoint.getStoryJsonInfoLinkByAccountId(ids)).build();
         // Response response = httpClient.newCall(request).execute();
         // Response response = executeHttpRequest(request);
         // response.body().byteStream()
