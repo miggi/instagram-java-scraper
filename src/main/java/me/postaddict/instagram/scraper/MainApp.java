@@ -12,15 +12,21 @@ public class MainApp {
     
     public static void main(String[] args) {
         try {
-            Instagram instagram = InstagramFactory.getAuthenticatedInstagramClient("javadzomorodian",
-                    "continueTalash@2020", UserAgents.OSX_CHROME);
+            Instagram instagram = new Instagram(null);
 
 //            Account account = instagram.getAccountByUsername("shiraz1400.ir");
             long[] ids = { 2004595101, 470174409, 2097652665 };
-            PageObject<Media> media = instagram.getMedias("shirazfood", 1);
+            // userId 2097652665
+            // "shirazfood"
+            // PageObject<Media> media = instagram.getMedias("shirazfood", 1);
             Story story = instagram.getStory(ids);
+<<<<<<< HEAD
             // // System.out.println(account.getMedia().getCount());
             System.out.println("hi");
+=======
+            // System.out.println(account.getMedia().getCount());
+            System.out.println(story);
+>>>>>>> 3d5fe49e29b8ccbbd13c7774894a0f7ea7db0efd
 
         } catch (IOException e) {
             e.printStackTrace();
