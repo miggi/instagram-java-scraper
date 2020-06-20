@@ -1,6 +1,7 @@
 {
     "data": {
-        "reels_media": [{
+        "reels_media": [
+            {
             "__typename": "GraphReel",
             "id": "2004595101",
             "latest_reel_media": 1592365905,

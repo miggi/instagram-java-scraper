@@ -9,13 +9,12 @@
         },
         "java-attributes": {
           "xml-element": [
-            {"java-attribute": "payload","type": "me.postaddict.instagram.scraper.model.Story","xml-path": "reels_media"}
+            {"java-attribute": "payload","type": "me.postaddict.instagram.scraper.model.ReelsMedia","xml-path": "reels_media"}
           ]
         }
       },
       {
         "name": "me.postaddict.instagram.scraper.model.Story",
-        "xml-root-element": {"name": "reels_media"},
         "java-attributes": {
           "xml-element": [
             {"java-attribute": "typeName", "type": "java.lang.String", "xml-path": "__typename/text()"},

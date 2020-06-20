@@ -148,7 +148,7 @@ public class Instagram implements AuthenticatedInsta {
         return getMedias(userId, pageCount, FIRST_PAGE);
     }
 
-    public Story getStory(long ids[]) throws IOException {
+    public ReelsMedia getStory(long ids[]) throws IOException {
         // Request request = new
         // Request.Builder().url(Endpoint.getStoryJsonInfoLinkByAccountId(ids)).build();
         // Response response = httpClient.newCall(request).execute();
