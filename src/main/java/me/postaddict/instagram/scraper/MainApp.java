@@ -9,7 +9,7 @@ import me.postaddict.instagram.scraper.model.Story;
 import java.io.IOException;
 
 public class MainApp {
-    
+
     public static void main(String[] args) {
         try {
             Instagram instagram = new Instagram(null);
@@ -20,13 +20,8 @@ public class MainApp {
             // "shirazfood"
             // PageObject<Media> media = instagram.getMedias("shirazfood", 1);
             Story story = instagram.getStory(ids);
-<<<<<<< HEAD
-            // // System.out.println(account.getMedia().getCount());
-            System.out.println("hi");
-=======
             // System.out.println(account.getMedia().getCount());
             System.out.println(story);
->>>>>>> 3d5fe49e29b8ccbbd13c7774894a0f7ea7db0efd
 
         } catch (IOException e) {
             e.printStackTrace();
