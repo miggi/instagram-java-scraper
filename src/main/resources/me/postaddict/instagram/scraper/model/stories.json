@@ -9,7 +9,11 @@
         },
         "java-attributes": {
           "xml-element": [
-            {"java-attribute": "payload","type": "me.postaddict.instagram.scraper.model.ReelsMedia","xml-path": "reels_media"}
+            {
+              "java-attribute": "payload",
+              "type": "me.postaddict.instagram.scraper.model.ReelsMedia",
+              "xml-path": "reels_media"
+            }
           ]
         }
       },
@@ -17,128 +21,54 @@
         "name": "me.postaddict.instagram.scraper.model.Story",
         "java-attributes": {
           "xml-element": [
-            {"java-attribute": "typeName", "type": "java.lang.String", "xml-path": "__typename/text()"},
-            {"java-attribute": "id", "type": "java.lang.String", "xml-path": "id/text()"},
-            {"java-attribute": "latestReelMedia", "type": "java.lang.Long", "xml-path": "latest_reel_media/text()"},
-            {"java-attribute": "canReply", "type": "java.lang.Boolean", "xml-path": "can_reply/text()"},
-            {"java-attribute": "canReshare", "type": "java.lang.Boolean", "xml-path": "can_reshare/text()"},
-            {"java-attribute": "expiringAt", "type": "java.lang.Long", "xml-path": "expiring_at/text()"},
-            {"java-attribute": "hasBestiesMedia", "type": "java.lang.Boolean", "xml-path": "has_besties_media/text()"},
-            {"java-attribute": "hasPrideMedia", "type": "java.lang.Boolean", "xml-path": "has_pride_media/text()"},
-            {"java-attribute": "seen", "type": "java.lang.Long", "xml-path": "seen/text()"},
-            {"java-attribute": "items", "type": "me.postaddict.instagram.scraper.model.StoryItem", "xml-path": "items/text()"}
-          ]
-        }
-      },
-      {
-        "name": "me.postaddict.instagram.scraper.model.StoryItem",
-        "xml-root-element": {"name": "items"},
-        "java-attributes": {
-          "xml-element": [
-            {"java-attribute": "audience", "type": "java.lang.String", "xml-path": "audience/text()"},
-            {"java-attribute": "edgeStoryMediaViewers", "type": "me.postaddict.instagram.scraper.model.EdgeStoryMediaViewers", "xml-path": "edge_story_media_viewers/text()"},
-            {"java-attribute": "typeName", "type": "java.lang.String", "xml-path": "__typename/text()"},
-            {"java-attribute": "id", "type": "java.lang.String", "xml-path": "id/text()"},
-            {"java-attribute": "height", "type": "java.lang.Integer", "xml-path": "dimensions/height/text()"},
-            {"java-attribute": "width", "type": "java.lang.Integer", "xml-path": "dimensions/width/text()"},
-            {"java-attribute": "displayResources","type": "me.postaddict.instagram.scraper.model.DisplayResource","xml-path": "display_resources"},
-            {"java-attribute": "displayUrl", "type": "java.lang.String", "xml-path": "display_url/text()"},
-            {"java-attribute": "mediaPreview", "type": "java.lang.String", "xml-path": "media_preview/text()"},
-            {"java-attribute": "gatingInfo", "type": "java.lang.Boolean", "xml-path": "gating_info/text()"},
-            {"java-attribute": "factCheckOverallRating", "type": "java.lang.Boolean", "xml-path": "fact_check_overall_rating/text()"},
-            {"java-attribute": "factCheckInformation", "type": "java.lang.Boolean", "xml-path": "fact_check_information/text()"},
-            {"java-attribute": "sensitivityFrictionInfo", "type": "java.lang.Boolean", "xml-path": "sensitivity_friction_info/text()"},
-            {"java-attribute": "takenAtTimestamp", "type": "java.lang.Long", "xml-path": "taken_at_timestamp/text()"},
-            {"java-attribute": "expiringAtTimestamp", "type": "java.lang.Long", "xml-path": "expiring_at_timestamp/text()"},
-            {"java-attribute": "storyCtaUrl", "type": "java.lang.String", "xml-path": "story_cta_url/text()"},
-            {"java-attribute": "storyViewCount", "type": "java.lang.Long", "xml-path": "story_view_count/text()"},
-            {"java-attribute": "isVideo", "type": "java.lang.Boolean", "xml-path": "is_video/text()"},
-            {"java-attribute": "trackingToken", "type": "java.lang.String", "xml-path": "tracking_token/text()"},
-            {"java-attribute": "tappableObjects","type": "me.postaddict.instagram.scraper.model.TappableObject","xml-path": "tappable_objects"},
-            {"java-attribute": "storyAppAttribution", "type": "java.lang.String", "xml-path": "story_app_attribution/text()"},
-
-            {"java-attribute": "mutingInfo", "type": "java.lang.String", "xml-path": "muting_info/text()"}
-          ]
-        }
-      },
-      {
-        "name": "me.postaddict.instagram.scraper.model.EdgeStoryMediaViewers",
-        "xml-root-element": {
-          "name": "edge_story_media_viewers"
-        },
-        "java-attributes": {
-          "xml-element": [
-            {"java-attribute": "count", "type": "java.lang.Integer", "xml-path": "count/text()"},
-            {"java-attribute": "page_info", "type": "me.postaddict.instagram.scraper.model.PageInfo", "xml-path": "page_info/text()"}
-          ]
-        }
-      },
-      {
-        "name": "me.postaddict.instagram.scraper.model.PageInfo",
-        "xml-root-element": {
-          "name": "page_info"
-        },
-        "java-attributes": {
-          "xml-attribute": [
-            {"java-attribute": "hasNextPage","type": "java.lang.Boolean","xml-path": "has_next_page/text()"},
-            {"java-attribute": "endCursor","type": "java.lang.String","xml-path": "end_cursor/text()"}
-          ]
-        }
-      },
-      {
-        "name": "me.postaddict.instagram.scraper.model.DisplayResource",
-        "java-attributes": {
-          "xml-element": [
-            {"java-attribute": "width","type": "java.lang.Integer","xml-path": "config_width/text()"},
-            {"java-attribute": "height","type": "java.lang.Integer","xml-path": "config_height/text()"},
-            {"java-attribute": "src","type": "java.lang.String","xml-path": "src/text()"}
-          ]
-        }
-      },
-      {
-        "name": "me.postaddict.instagram.scraper.model.TappableObject",
-        "java-attributes": {
-          "xml-element": [
-            {"java-attribute": "typename","type": "java.lang.String","xml-path": "__typename/text()"},
-            {"java-attribute": "x","type": "java.lang.Float","xml-path": "x/text()"},
-            {"java-attribute": "y","type": "java.lang.Float","xml-path": "y/text()"},
-            {"java-attribute": "width","type": "java.lang.Float","xml-path": "width/text()"},
-            {"java-attribute": "height","type": "java.lang.Float","xml-path": "height/text()"},
-            {"java-attribute": "rotation","type": "java.lang.Float","xml-path": "rotation/text()"},
-            {"java-attribute": "customTitle","type": "java.lang.String","xml-path": "custom_title/text()"},
-            {"java-attribute": "attribution","type": "java.lang.String","xml-path": "attribution/text()"},
-
-            {"java-attribute": "shortcode","type": "java.lang.String","xml-path": "media/shortcode/text()"},
-            {"java-attribute": "username","type": "java.lang.String","xml-path": "username/text()"},
-            {"java-attribute": "fullName","type": "java.lang.String","xml-path": "full_name/text()"},
-            {"java-attribute": "isPrivate","type": "java.lang.Boolean","xml-path": "is_private/text()"},
-
-            {"java-attribute": "id","type": "java.lang.String","xml-path": "id/text()"},
-            {"java-attribute": "option_a","type": "java.lang.String","xml-path": "option_a/text()"},
-            {"java-attribute": "option_b","type": "java.lang.String","xml-path": "option_b/text()"},
-            {"java-attribute": "option_a_font_size","type": "java.lang.Float","xml-path": "option_a_font_size/text()"},
-            {"java-attribute": "option_b_font_size","type": "java.lang.Float","xml-path": "option_b_font_size/text()"},
-            {"java-attribute": "question","type": "java.lang.String","xml-path": "question/text()"},
-            {"java-attribute": "viewer_can_interact","type": "java.lang.Boolean","xml-path": "viewer_can_interact/text()"},
-            {"java-attribute": "viewer_vote","type": "java.lang.String","xml-path": "viewer_vote/text()"},
-            {"java-attribute": "tallies","type": "me.postaddict.instagram.scraper.model.Tally","xml-path": "tallies/text()"}
-          ]
-        }
-      },
-      {
-        "name": "me.postaddict.instagram.scraper.model.Tally",
-        "xml-root-element": {
-          "name": "tallies"
-        },
-        "java-attributes": {
-          "xml-element": [
-            {"java-attribute": "text", "type": "java.lang.String", "xml-path": "muting_info/text()"},
-            {"java-attribute": "count", "type": "java.lang.Long", "xml-path": "muting_info/text()"},
-            {"java-attribute": "fontSize", "type": "java.lang.Float", "xml-path": "muting_info/text()"}
+            {
+              "java-attribute": "typeName",
+              "type": "java.lang.String",
+              "xml-path": "__typename/text()"
+            },
+            {
+              "java-attribute": "id",
+              "type": "java.lang.String",
+              "xml-path": "id/text()"
+            },
+            {
+              "java-attribute": "latestReelMedia",
+              "type": "java.lang.Long",
+              "xml-path": "latest_reel_media/text()"
+            },
+            {
+              "java-attribute": "canReply",
+              "type": "java.lang.Boolean",
+              "xml-path": "can_reply/text()"
+            },
+            {
+              "java-attribute": "canReshare",
+              "type": "java.lang.Boolean",
+              "xml-path": "can_reshare/text()"
+            },
+            {
+              "java-attribute": "expiringAt",
+              "type": "java.lang.Long",
+              "xml-path": "expiring_at/text()"
+            },
+            {
+              "java-attribute": "hasBestiesMedia",
+              "type": "java.lang.Boolean",
+              "xml-path": "has_besties_media/text()"
+            },
+            {
+              "java-attribute": "hasPrideMedia",
+              "type": "java.lang.Boolean",
+              "xml-path": "has_pride_media/text()"
+            },
+            {
+              "java-attribute": "seen",
+              "type": "java.lang.Long",
+              "xml-path": "seen/text()"
+            }
           ]
         }
       }
-
     ]
   }
 }
