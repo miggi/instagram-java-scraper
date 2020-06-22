@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties({"__typename", "user", "owner"})
 public class Story {
-    private String id;
+    private Long id;
     private Long latestReelMedia;
     private Boolean canReply;
     private Boolean canReshare;
