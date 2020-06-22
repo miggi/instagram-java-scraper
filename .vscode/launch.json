@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - JacksonMain",
+            "request": "launch",
+            "mainClass": "me.postaddict.instagram.scraper.JacksonMain",
+            "projectName": "instagramscraper-scraper"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - JsonMain",
+            "request": "launch",
+            "mainClass": "me.postaddict.instagram.scraper.JsonMain",
+            "projectName": "instagramscraper-scraper"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "me.postaddict.instagram.scraper.MainApp"
@@ -15,6 +29,13 @@
             "name": "Debug (Launch)-MainApp<instagramscraper-scraper>",
             "request": "launch",
             "mainClass": "me.postaddict.instagram.scraper.MainApp",
+            "projectName": "instagramscraper-scraper"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - JsonMain<instagramscraper-scraper>",
+            "request": "launch",
+            "mainClass": "me.postaddict.instagram.scraper.JsonMain",
             "projectName": "instagramscraper-scraper"
         }
     ]

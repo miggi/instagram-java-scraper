@@ -1,5 +1,5 @@
 plugins {
-	id "java"
+  id "java"
   id "io.freefair.lombok" version "5.1.0"
 }
 
@@ -15,14 +15,20 @@ repositories {
 }
 
 dependencies {
-		compile 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+    // JSON-B
+    compile 'jakarta.json.bind:jakarta.json.bind-api:1.0.2'
+    implementation 'org.eclipse:yasson:1.0.7'
+    implementation 'org.glassfish:jakarta.json:1.1.6'
+
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
+    compile 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+    implementation 'org.eclipse.persistence:org.eclipse.persistence.moxy:2.7.0'
+    
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
     compile 'com.github.igor-suhorukov:dom-transformation:1.1'
     compile 'commons-io:commons-io:2.6'
     compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
-    compile 'org.eclipse.persistence:org.eclipse.persistence.moxy:2.7.0'
     compile 'commons-beanutils:commons-beanutils:1.9.3'
     compileOnly 'org.projectlombok:lombok:1.18.12'
     testCompile 'junit:junit:4.11'
