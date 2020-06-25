@@ -31,7 +31,7 @@ public class JsonMain {
 
         JsonStory dj = jsonb.fromJson(is, JsonStory.class);
         System.out.println("hi");
-        System.out.println(dj.getData().getReelsMedia().get(0).getItems().get(0));
+        // System.out.println(dj.getData().getReelsMedia().get(0));
 
     }
 
