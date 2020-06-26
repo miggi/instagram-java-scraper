@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy.PropertyNamingStrategyBase;
 import me.postaddict.instagram.scraper.model.JsonStory;
 import me.postaddict.instagram.scraper.model.ReelsMedia;
+import me.postaddict.instagram.scraper.model.ReelsMedias;
 import me.postaddict.instagram.scraper.model.Story;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -26,23 +27,24 @@ public class JsonMain {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        String pathStories = "stories_example.json";
+        String pathStories = "stories_example2.json";
         String pathStory = "story_example.json";
 
-        JsonbConfig config = new JsonbConfig()
-                .withPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES)
-                .withNullValues(true);
-        Jsonb jsonb = JsonbBuilder.create(config);
-        InputStream is = new FileInputStream(pathStories);
+        InputStream is1 = new FileInputStream(pathStories);
 
-        JsonStory dj = jsonb.fromJson(is, JsonStory.class);
-        System.out.println(dj.getClass());
-        System.out.println(dj.getData().getClass());
-        System.out.println(dj.getData().getReelsMedia().getClass());
-        System.out.println(dj.getData().getReelsMedia());
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        // Story story = (Story) dj.getData().getReelsMedia().get(0);
-        // System.out.println(dj.getData().getReelsMedia().get(0).getCanReply());
+        try {
+            objectMapper.setPropertyNamingStrategy(
+                    com.fasterxml.jackson.databind.PropertyNamingStrategy.SNAKE_CASE);
+
+            JsonStory dj1 = objectMapper.readValue(is1, JsonStory.class);
+            JsonNode jsonNode = objectMapper.readTree(is1);
+            System.out.println("hi");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
 
     }
