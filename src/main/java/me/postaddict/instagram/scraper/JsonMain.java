@@ -27,7 +27,7 @@ public class JsonMain {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        String pathStories = "stories_example2.json";
+        String pathStories = "stories_example.json";
         String pathStory = "story_example.json";
 
         InputStream is1 = new FileInputStream(pathStories);
@@ -42,7 +42,7 @@ public class JsonMain {
             JsonNode jsonNode = objectMapper.readTree(is1);
             System.out.println("hi");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
 
