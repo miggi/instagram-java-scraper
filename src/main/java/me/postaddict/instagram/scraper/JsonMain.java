@@ -26,7 +26,7 @@ public class JsonMain {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        String pathStories = "stories_example.json";
+        String pathStories = "stories_example2.json";
         String pathStory = "story_example.json";
 
         JsonbConfig config = new JsonbConfig()
