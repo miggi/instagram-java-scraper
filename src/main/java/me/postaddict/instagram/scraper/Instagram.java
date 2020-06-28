@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.Instant;
-
+import java.util.ArrayList;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import lombok.AllArgsConstructor;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;
 import me.postaddict.instagram.scraper.mapper.Mapper;
@@ -53,7 +55,8 @@ public class Instagram implements AuthenticatedInsta {
     protected Request withCsrfToken(Request request) {
         return request.newBuilder().addHeader("X-CSRFToken", getCSRFToken())
                 .addHeader("X-Instagram-AJAX", (rollout_hash.isEmpty() ? "1" : rollout_hash))
-                .addHeader("X-Requested-With", "XMLHttpRequest").addHeader("X-IG-App-ID", "936619743392459").build();
+                .addHeader("X-Requested-With", "XMLHttpRequest")
+                .addHeader("X-IG-App-ID", "936619743392459").build();
     }
 
     public void basePage() throws IOException {
@@ -73,7 +76,8 @@ public class Instagram implements AuthenticatedInsta {
     }
 
     private String getCSRFToken() {
-        for (Cookie cookie : this.httpClient.cookieJar().loadForRequest(HttpUrl.parse(Endpoint.BASE_URL))) {
+        for (Cookie cookie : this.httpClient.cookieJar()
+                .loadForRequest(HttpUrl.parse(Endpoint.BASE_URL))) {
             if ("csrftoken".equals(cookie.name())) {
                 return cookie.value();
             }
@@ -111,16 +115,19 @@ public class Instagram implements AuthenticatedInsta {
 
         RequestBody formBody = new FormBody.Builder().add("username", username)
                 .add("enc_password",
-                        String.format("#PWD_INSTAGRAM_BROWSER:0:%d:%s", Instant.now().getEpochSecond(), password))
+                        String.format("#PWD_INSTAGRAM_BROWSER:0:%d:%s",
+                                Instant.now().getEpochSecond(), password))
                 .add("queryParams", "{}").add("optIntoOneTap", "true").build();
 
         Request request = new Request.Builder().url(Endpoint.LOGIN_URL)
-                .header(Endpoint.REFERER, Endpoint.BASE_URL + "/accounts/login/").post(formBody).build();
+                .header(Endpoint.REFERER, Endpoint.BASE_URL + "/accounts/login/").post(formBody)
+                .build();
 
         Response response = executeHttpRequest(withCsrfToken(request));
         try (InputStream jsonStream = response.body().byteStream()) {
             if (!mapper.isAuthenticated(jsonStream)) {
-                throw new InstagramAuthException("Credentials rejected by instagram", ErrorType.UNAUTHORIZED);
+                throw new InstagramAuthException("Credentials rejected by instagram",
+                        ErrorType.UNAUTHORIZED);
             }
         }
     }
@@ -130,8 +137,8 @@ public class Instagram implements AuthenticatedInsta {
                 .header(Endpoint.REFERER, Endpoint.BASE_URL + "/").build();
         Response response = executeHttpRequest(withCsrfToken(request));
         try (InputStream jsonStream = response.body().byteStream()) {
-            return getAccountByUsername(
-                    getMediaByCode(mapper.getLastMediaShortCode(jsonStream)).getOwner().getUsername());
+            return getAccountByUsername(getMediaByCode(mapper.getLastMediaShortCode(jsonStream))
+                    .getOwner().getUsername());
         }
     }
 
@@ -148,7 +155,8 @@ public class Instagram implements AuthenticatedInsta {
         return getMedias(userId, pageCount, FIRST_PAGE);
     }
 
-    public Story getStory(long ids[]) throws IOException {
+    public ArrayList<Story> getStories(long[] ids)
+            throws JsonParseException, JsonMappingException, IOException {
         // Request request = new
         // Request.Builder().url(Endpoint.getStoryJsonInfoLinkByAccountId(ids)).build();
         // Response response = httpClient.newCall(request).execute();
@@ -162,15 +170,18 @@ public class Instagram implements AuthenticatedInsta {
         }
     }
 
-    public PageObject<Media> getMedias(long userId, int pageCount, PageInfo pageCursor) throws IOException {
+    public PageObject<Media> getMedias(long userId, int pageCount, PageInfo pageCursor)
+            throws IOException {
         GetMediasRequest getMediasRequest = new GetMediasRequest(httpClient, mapper, delayHandler);
-        return getMediasRequest.requestInstagramResult(new UserParameter(userId), pageCount, pageCursor);
+        return getMediasRequest.requestInstagramResult(new UserParameter(userId), pageCount,
+                pageCursor);
     }
 
     public Media getMediaByUrl(String url) throws IOException {
         String urlRegexp = Endpoint.getMediaPageLinkByCodeMatcher();
         if (url == null || !url.matches(urlRegexp)) {
-            throw new IllegalArgumentException("Media URL not matches regexp: " + urlRegexp + " current value: " + url);
+            throw new IllegalArgumentException(
+                    "Media URL not matches regexp: " + urlRegexp + " current value: " + url);
         }
         Request request = new Request.Builder().url(url + "/?__a=1").build();
 
@@ -196,19 +207,25 @@ public class Instagram implements AuthenticatedInsta {
     }
 
     public Location getLocationMediasById(String locationId, int pageCount) throws IOException {
-        GetLocationRequest getLocationRequest = new GetLocationRequest(httpClient, mapper, delayHandler);
-        return getLocationRequest.requestInstagramResult(new LocationParameter(locationId), pageCount, FIRST_PAGE);
+        GetLocationRequest getLocationRequest =
+                new GetLocationRequest(httpClient, mapper, delayHandler);
+        return getLocationRequest.requestInstagramResult(new LocationParameter(locationId),
+                pageCount, FIRST_PAGE);
     }
 
     public Tag getMediasByTag(String tag, int pageCount) throws IOException {
         validateTagName(tag);
-        GetMediaByTagRequest getMediaByTagRequest = new GetMediaByTagRequest(httpClient, mapper, delayHandler);
+        GetMediaByTagRequest getMediaByTagRequest =
+                new GetMediaByTagRequest(httpClient, mapper, delayHandler);
         return getMediaByTagRequest.requestInstagramResult(new TagName(tag), pageCount, FIRST_PAGE);
     }
 
-    public PageObject<Comment> getCommentsByMediaCode(String code, int pageCount) throws IOException {
-        GetCommentsByMediaCode getCommentsByMediaCode = new GetCommentsByMediaCode(httpClient, mapper, delayHandler);
-        return getCommentsByMediaCode.requestInstagramResult(new MediaCode(code), pageCount, new PageInfo(true, "0"));
+    public PageObject<Comment> getCommentsByMediaCode(String code, int pageCount)
+            throws IOException {
+        GetCommentsByMediaCode getCommentsByMediaCode =
+                new GetCommentsByMediaCode(httpClient, mapper, delayHandler);
+        return getCommentsByMediaCode.requestInstagramResult(new MediaCode(code), pageCount,
+                new PageInfo(true, "0"));
     }
 
     public void likeMediaByCode(String code) throws IOException {
@@ -228,8 +245,9 @@ public class Instagram implements AuthenticatedInsta {
 
     public void followAccount(long userId) throws IOException {
         String url = Endpoint.getFollowAccountLink(userId);
-        Request request = new Request.Builder().url(url).header(Endpoint.REFERER, Endpoint.BASE_URL + "/")
-                .post(new FormBody.Builder().build()).build();
+        Request request =
+                new Request.Builder().url(url).header(Endpoint.REFERER, Endpoint.BASE_URL + "/")
+                        .post(new FormBody.Builder().build()).build();
         Response response = executeHttpRequest(withCsrfToken(request));
         response.body().close();
     }
@@ -241,25 +259,32 @@ public class Instagram implements AuthenticatedInsta {
 
     public void unfollowAccount(long userId) throws IOException {
         String url = Endpoint.getUnfollowAccountLink(userId);
-        Request request = new Request.Builder().url(url).header(Endpoint.REFERER, Endpoint.BASE_URL + "/")
-                .post(new FormBody.Builder().build()).build();
+        Request request =
+                new Request.Builder().url(url).header(Endpoint.REFERER, Endpoint.BASE_URL + "/")
+                        .post(new FormBody.Builder().build()).build();
         Response response = executeHttpRequest(withCsrfToken(request));
         response.body().close();
     }
 
     public PageObject<Account> getMediaLikes(String shortcode, int pageCount) throws IOException {
-        GetMediaLikesRequest getMediaLikesRequest = new GetMediaLikesRequest(httpClient, mapper, delayHandler);
-        return getMediaLikesRequest.requestInstagramResult(new MediaCode(shortcode), pageCount, FIRST_PAGE);
+        GetMediaLikesRequest getMediaLikesRequest =
+                new GetMediaLikesRequest(httpClient, mapper, delayHandler);
+        return getMediaLikesRequest.requestInstagramResult(new MediaCode(shortcode), pageCount,
+                FIRST_PAGE);
     }
 
     public PageObject<Account> getFollows(long userId, int pageCount) throws IOException {
-        GetFollowsRequest getFollowsRequest = new GetFollowsRequest(httpClient, mapper, delayHandler);
-        return getFollowsRequest.requestInstagramResult(new UserParameter(userId), pageCount, FIRST_PAGE);
+        GetFollowsRequest getFollowsRequest =
+                new GetFollowsRequest(httpClient, mapper, delayHandler);
+        return getFollowsRequest.requestInstagramResult(new UserParameter(userId), pageCount,
+                FIRST_PAGE);
     }
 
     public PageObject<Account> getFollowers(long userId, int pageCount) throws IOException {
-        GetFollowersRequest getFollowersRequest = new GetFollowersRequest(httpClient, mapper, delayHandler);
-        return getFollowersRequest.requestInstagramResult(new UserParameter(userId), pageCount, FIRST_PAGE);
+        GetFollowersRequest getFollowersRequest =
+                new GetFollowersRequest(httpClient, mapper, delayHandler);
+        return getFollowersRequest.requestInstagramResult(new UserParameter(userId), pageCount,
+                FIRST_PAGE);
     }
 
     public void unlikeMediaByCode(String code) throws IOException {
@@ -272,11 +297,13 @@ public class Instagram implements AuthenticatedInsta {
         response.body().close();
     }
 
-    public ActionResponse<Comment> addMediaComment(String code, String commentText) throws IOException {
+    public ActionResponse<Comment> addMediaComment(String code, String commentText)
+            throws IOException {
         String url = Endpoint.addMediaCommentLink(MediaUtil.getIdFromCode(code));
         FormBody formBody = new FormBody.Builder().add("comment_text", commentText).build();
         Request request = new Request.Builder().url(url)
-                .header(Endpoint.REFERER, Endpoint.getMediaPageLinkByCode(code) + "/").post(formBody).build();
+                .header(Endpoint.REFERER, Endpoint.getMediaPageLinkByCode(code) + "/")
+                .post(formBody).build();
 
         Response response = executeHttpRequest(withCsrfToken(request));
         try (InputStream jsonStream = response.body().byteStream()) {
@@ -312,7 +339,8 @@ public class Instagram implements AuthenticatedInsta {
     private void markActivityChecked(ActivityFeed activityFeed) throws IOException {
         Request request = new Request.Builder().url(Endpoint.ACTIVITY_MARK_CHECKED)
                 .header(Endpoint.REFERER, Endpoint.BASE_URL + "/")
-                .post(new FormBody.Builder().add("timestamp", activityFeed.getTimestamp()).build()).build();
+                .post(new FormBody.Builder().add("timestamp", activityFeed.getTimestamp()).build())
+                .build();
         try (ResponseBody response = executeHttpRequest(withCsrfToken(request)).body()) {
             // skip
         }
@@ -328,13 +356,15 @@ public class Instagram implements AuthenticatedInsta {
 
     private void validateTagName(String tag) {
         if (tag == null || tag.isEmpty() || tag.startsWith("#")) {
-            throw new IllegalArgumentException("Please provide non empty tag name that not starts with #");
+            throw new IllegalArgumentException(
+                    "Please provide non empty tag name that not starts with #");
         }
     }
 
     @Override
     public Long getLoginUserId() {
-        for (Cookie cookie : this.httpClient.cookieJar().loadForRequest(HttpUrl.parse(Endpoint.BASE_URL))) {
+        for (Cookie cookie : this.httpClient.cookieJar()
+                .loadForRequest(HttpUrl.parse(Endpoint.BASE_URL))) {
             if ("ds_user_id".equals(cookie.name())) {
                 return Long.parseLong(cookie.value());
             }

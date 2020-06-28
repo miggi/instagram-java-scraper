@@ -7,6 +7,7 @@ import me.postaddict.instagram.scraper.model.PageObject;
 import me.postaddict.instagram.scraper.model.Story;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainApp {
 
@@ -14,14 +15,14 @@ public class MainApp {
         try {
             Instagram instagram = new Instagram(null);
 
-//            Account account = instagram.getAccountByUsername("shiraz1400.ir");
-            long[] ids = { 2004595101, 470174409, 2097652665 };
+            // Account account = instagram.getAccountByUsername("shiraz1400.ir");
+            long[] ids = {2004595101, 470174409, 2097652665};
             // userId 2097652665
             // "shirazfood"
             // PageObject<Media> media = instagram.getMedias("shirazfood", 1);
-            Story story = instagram.getStory(ids);
+            ArrayList<Story> stories = instagram.getStories(ids);
             // System.out.println(account.getMedia().getCount());
-            System.out.println(story);
+            System.out.println(stories);
 
         } catch (IOException e) {
             e.printStackTrace();
