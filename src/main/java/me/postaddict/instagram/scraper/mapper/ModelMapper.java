@@ -177,12 +177,18 @@ public class ModelMapper implements Mapper {
     }
 
     @Override
-    public ArrayList<Story> mapStory(InputStream jsonStream)
-            throws JsonParseException, JsonMappingException, IOException {
+    public ArrayList<Story> mapStory(InputStream jsonStream) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
-        JsonStory data = mapper.readValue(jsonStream, JsonStory.class);
-        return (ArrayList<Story>) data.getData().getReelsMedia();
+        try {
+            JsonStory data = mapper.readValue(jsonStream, JsonStory.class);
+            return (ArrayList<Story>) data.getData().getReelsMedia();
+        } catch (JsonParseException | JsonMappingException e) {
+            e.getMessage();
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        return null;
     }
 
     private Node getDomModel(InputStream jsonStream) throws java.io.IOException {

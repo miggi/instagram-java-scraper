@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import lombok.AllArgsConstructor;
@@ -155,18 +156,18 @@ public class Instagram implements AuthenticatedInsta {
         return getMedias(userId, pageCount, FIRST_PAGE);
     }
 
-    public ArrayList<Story> getStories(long[] ids)
-            throws JsonParseException, JsonMappingException, IOException {
-        // Request request = new
-        // Request.Builder().url(Endpoint.getStoryJsonInfoLinkByAccountId(ids)).build();
+    public List<Story> getStories(long[] ids) throws IOException {
+        Request request =
+                new Request.Builder().url(Endpoint.getStoryJsonInfoLinkByAccountId(ids)).build();
         // Response response = httpClient.newCall(request).execute();
-        // Response response = executeHttpRequest(request);
-        // response.body().byteStream()
+        Response response = executeHttpRequest(request);
 
-        File file = new File("stories_example.json");
 
-        try (InputStream jsonStream = new FileInputStream(file)) {
-            return mapper.mapStory(jsonStream);
+        // File file = new File("stories_example.json");
+        // new FileInputStream(file)
+
+        try (InputStream jsonStream = response.body().byteStream()) {
+            return (List<Story>) mapper.mapStory(jsonStream);
         }
     }
 
