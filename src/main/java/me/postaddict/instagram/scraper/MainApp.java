@@ -7,7 +7,6 @@ import me.postaddict.instagram.scraper.model.PageObject;
 import me.postaddict.instagram.scraper.model.Story;
 import okhttp3.OkHttpClient;
 import java.io.IOException;
-import java.net.http.HttpClient;
 import java.util.ArrayList;
 import java.util.List;
 
