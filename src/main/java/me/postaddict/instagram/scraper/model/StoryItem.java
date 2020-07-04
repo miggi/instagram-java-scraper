@@ -19,10 +19,10 @@ public class StoryItem {
     // private List<DisplayResource> displayResources;
     private String displayUrl;
     private String mediaPreview;
-    private Boolean gatingInfo;
+    private GatingInfo gatingInfo;
     private Boolean factCheckOverallRating;
     private Boolean factCheckInformation;
-    private Boolean sensitivityFrictionInfo;
+    private SensitivityFrictionInfo sensitivityFrictionInfo;
     private Long takenAtTimestamp;
     private Long expiringAtTimestamp;
     private String storyCtaUrl;
