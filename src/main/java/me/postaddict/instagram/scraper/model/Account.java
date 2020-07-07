@@ -6,10 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Date;
 
 @Entity
 @Data
+@JsonIgnoreProperties({"__typename"})
 public class Account {
     @Id
     private long id;

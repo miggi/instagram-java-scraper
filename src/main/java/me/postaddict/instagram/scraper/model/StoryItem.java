@@ -8,9 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
 @JsonIgnoreProperties({"owner", "audience", "edge_story_media_viewers", "__typename", "dimensions",
-        "display_resources", "tappable_objects", "edge_media_to_sponsor_user",
-        "story_app_attribution", "media_overlay_info", "overlay_image_resources", "video_resources",
-        "muting_info"})
+        "display_resources", "edge_media_to_sponsor_user", "story_app_attribution",
+        "media_overlay_info", "overlay_image_resources", "video_resources", "muting_info"})
 public class StoryItem {
     // private EdgeStoryMediaViewers edgeStoryMediaViewers;
     private String id;
@@ -31,7 +30,7 @@ public class StoryItem {
     private String trackingToken;
     private Boolean hasAudio;
     private Double videoDuration;
-    // private List<TappableObject> tappableObjects;
+    private List<TappableObject> tappableObjects;
     // private String storyAppAttribution;
     // private String edgeMediaToSponsorUser;
 }

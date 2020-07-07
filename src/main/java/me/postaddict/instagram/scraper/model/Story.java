@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties({"__typename", "user", "owner"})
+@JsonIgnoreProperties({"__typename", "user"})
 public class Story {
     private Long id;
     private Long latestReelMedia;
@@ -17,6 +17,6 @@ public class Story {
     private Boolean hasPrideMedia;
     private Boolean seen;
     private List<StoryItem> items;
-    // private Account owner;
+    private Account owner;
 
 }
